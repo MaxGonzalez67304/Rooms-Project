@@ -23,7 +23,7 @@ public class RoomService {
     }
 
     public List<Room> getByRoomSize(String size) {
-        return roomRepository.findBySize(size);
+        return roomRepository.findBySizeAndIsReservedFalse(size);
     }
 
     public void saveOrUpdateRoom(Room room) {
