@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Room } from 'src/app/model/Room';
 import { ApiService } from 'src/app/service/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   isUpdate: boolean = false;
   idRoomDelete: number | null = null;
   selectedSize: string = 'All';
+  allSizes: string[] = ["All", "Small", "Medium", "Large"];
   lastReservationDate: Date | null = null;
   loading: boolean = true;
 
@@ -79,6 +81,30 @@ export class HomeComponent implements OnInit {
 
   deleteRoom(idRoom: number) {
     this.idRoomDelete = idRoom;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this note',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.confirmDeleteRoom();
+      }
+    });
+  }
+
+  confirmDeleteRoom() {
+    if (this.idRoomDelete) {
+      this.apiService.deleteRoomById(this.idRoomDelete).subscribe(response => {
+        if (!response) {
+          this.listAllRooms();
+        }
+      });
+    }
   }
 
   newRoom() {
@@ -108,7 +134,7 @@ export class HomeComponent implements OnInit {
     return lastReserved.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' });
   }
 
-  reserveRoom(idRoom: number) {
+  reservateRoom(idRoom: number) {
     this.apiService.putReservationStatus(idRoom, true).subscribe(response => {
       if (response) {
         this.listAllRooms();
