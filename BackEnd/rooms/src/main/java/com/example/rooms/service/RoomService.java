@@ -2,15 +2,13 @@ package com.example.rooms.service;
 
 import com.example.rooms.model.Room;
 import com.example.rooms.repository.RoomRepository;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RoomService {
     @Autowired
     RoomRepository roomRepository;
