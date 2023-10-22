@@ -13,11 +13,7 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1")
 public class RoomController {
     @Autowired
-    private final RoomService roomService;
-
-    public RoomController(RoomService roomService) {
-        this.roomService = roomService;
-    }
+    private RoomService roomService;
 
     @GetMapping("/room/findReserved")
     public List<Room> getReservedRooms() {
@@ -29,7 +25,7 @@ public class RoomController {
         return roomService.getNonReservedRooms();
     }
 
-    @GetMapping("/size/{size}")
+    @GetMapping("/room/size/{size}")
     public List<Room> getRoomsBySize(@PathVariable String size) {
         return roomService.getByRoomSize(size);
     }

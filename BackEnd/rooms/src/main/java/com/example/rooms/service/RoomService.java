@@ -15,11 +15,11 @@ public class RoomService {
     RoomRepository roomRepository;
 
     public List<Room> getReservedRooms() {
-        return roomRepository.findByReservedTrue();
+        return roomRepository.findByIsReservedTrue();
     }
 
     public List<Room> getNonReservedRooms() {
-        return roomRepository.findByReservedFalse();
+        return roomRepository.findByIsReservedFalse();
     }
 
     public List<Room> getByRoomSize(String size) {

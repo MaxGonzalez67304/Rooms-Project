@@ -19,6 +19,7 @@ public class Room {
     @Column(name = "size", length = 10, nullable = false)
     private String size;
 
+    @Column(name = "is_reserved")
     private boolean isReserved;
 
     @Column(name = "reservation_date")

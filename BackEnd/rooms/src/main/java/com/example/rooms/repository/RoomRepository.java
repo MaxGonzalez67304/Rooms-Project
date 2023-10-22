@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
-    List<Room> findByReservedTrue();
-    List<Room> findByReservedFalse();
+    List<Room> findByIsReservedTrue();
+    List<Room> findByIsReservedFalse();
     List<Room> findBySize(String size);
 }
