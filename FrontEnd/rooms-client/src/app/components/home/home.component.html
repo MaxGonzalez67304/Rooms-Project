@@ -1,1 +1,123 @@
-<p>home works!</p>
+<div class="container" id="align">
+    <div class="row align-items-center justify-content-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="title">Board Rooms</h1>
+        </div>
+        <div class="col-md-2 d-flex align-items-center">
+            <label class="size" for="sizeSelect">Size filter:</label>
+            &nbsp;
+            &nbsp;
+            <select id="sizeSelect" [(ngModel)]="selectedSize" (change)="filterRoomsBySize()"
+                class="form-select form-select-md" aria-label=".form-select-sm example">
+                <option *ngFor="let size of allSizes" [value]="size">{{ size }}</option>
+            </select>
+        </div>
+
+        &nbsp;
+
+        <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa fa-save"></i> New Room
+            </button>
+        </div>
+
+        &nbsp;
+
+        <div class="col-md-2 d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-dark btn-md" data-bs-toggle="modal" routerLink="/reservations">
+                <i class="fa fa-archive"></i> Reserved Rooms
+            </button>
+        </div>
+    </div>
+</div>
+
+&nbsp;
+
+<div *ngIf="loading">
+    <div class="d-flex justify-content-center mt-3">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!loading">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-4 mb-3" *ngFor="let item of listRooms">
+                <div class="card bg-success-light border-success">
+                    <div class="card-header bg-success">
+                        <h5 class="card-title text-white">{{ item.name }}</h5>
+                    </div>
+                    <div class="cardBackground card-body">
+                        <p class="card-text">{{ item.size }}</p>
+                    </div>
+                    <div class="card-footer bg-success d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Last reserved: {{ item.reservationDate ?
+                            formatLastReserved(item.reservationDate) : 'N/A'
+                            }}</small>
+                        <p class="card-text m-0">{{ item.isReserved }}</p>
+                        <div>
+                            <button type="button" class="btn btn-dark btn-sm" (click)="reservateRoom(item.idRoom)">
+                                <i class="fa fa-archive"></i>
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" (click)="selectItem(item)">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteRoom(item.idRoom)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    (hidden.bs.modal)="newRoom()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 *ngIf="!isUpdate" class="modal-title fs-5">New Room</h1>
+                <h1 *ngIf="isUpdate" class="modal-title fs-5">Update Room</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="newRoom()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formRoom">
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Size</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" formControlName="size">
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="!isUpdate" type="button" class="btn btn-success btn-sm"
+                    (click)="saveRoom()">Save</button>
+                <button *ngIf="isUpdate" type="button" class="btn btn-warning btn-sm"
+                    (click)="updateRoom()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,7 +28,7 @@ export class ApiService {
   }
 
   putReservationStatus(idRoom: number, isReserved: boolean): Observable<Room> {
-    return this.httpClient.put<Room>(_URL_PUT_RESERVATION + "/" + idRoom + "/" + isReserved, null);
+    return this.httpClient.put<Room>(_URL_PUT_RESERVATION + "/" + idRoom, isReserved);
   }
 
   postRoom(room: Room): Observable<Room> {
