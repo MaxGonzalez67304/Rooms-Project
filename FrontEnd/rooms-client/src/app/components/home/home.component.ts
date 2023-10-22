@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Room } from 'src/app/model/Room';
 import { ApiService } from 'src/app/service/api.service';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   listRooms: Room[] = [];
   formRoom: FormGroup = new FormGroup({});
   isUpdate: boolean = false;
