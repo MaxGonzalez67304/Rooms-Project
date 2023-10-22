@@ -15,7 +15,7 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUnreservedRooms(): Observable<Room[]> {
+  getUnReservedRooms(): Observable<Room[]> {
     return this.httpClient.get<Room[]>(_URL_GET_UNRESERVED);
   }
 
