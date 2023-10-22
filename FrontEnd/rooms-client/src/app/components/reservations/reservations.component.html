@@ -1,1 +1,38 @@
-<p>reservations works!</p>
+<div class="container" id="align">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <h1 class="title">Reserved rooms</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-14 d-flex align-items-center justify-content-center">
+        <button type="button" class="btn btn-dark btn-md" routerLink="/home">
+          <i class="fa fa-arrow-left"></i> Go Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row mt-2">
+      <div class="col-md-4 mb-3" *ngFor="let item of reservedRooms">
+        <div class="card bg-secondary-light border-secondary">
+          <div class="card-header bg-secondary">
+            <h5 class="card-title text-white">{{ item.name }}</h5>
+          </div>
+          <div class="card-body" style="background-color: lightgray;">
+            <p class="card-text">{{ item.size }}</p>
+            <small class="text-muted">Last reserved: {{ item.reservationDate ?
+                formatLastReserved(item.reservationDate) : 'N/A'
+                }}</small>
+          </div>
+          <div class="card-footer bg-secondary d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn btn-success btn-sm" (click)="updateReservationStatus(item.idRoom)">
+                <i class="fa fa-archive"></i> Unreserve
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

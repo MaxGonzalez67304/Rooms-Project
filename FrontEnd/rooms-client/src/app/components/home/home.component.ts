@@ -49,16 +49,17 @@ export class HomeComponent {
 
   filterRoomsBySize() {
     this.loading = true;
+
     if (this.selectedSize === 'All') {
       this.listAllRooms();
     } else {
       this.apiService.getRoomsBySize(this.selectedSize).subscribe((response) => {
-        this.listRooms = response.filter((room) => !room.isReserved);
+        this.listRooms = response.filter((room) => !room.isReserved  && room.size === this.selectedSize);
         this.loading = false;
-      }
-      );
+      });
     }
   }
+
 
   saveRoom() {
     this.apiService.postRoom(this.formRoom.value).subscribe(response => {
