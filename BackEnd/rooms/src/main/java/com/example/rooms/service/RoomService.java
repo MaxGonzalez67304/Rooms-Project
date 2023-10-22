@@ -21,6 +21,10 @@ public class RoomService {
         roomRepository.findByReservedFalse();
     }
 
+    public void getByRoomSize(String size) {
+        roomRepository.findBySize(size);
+    }
+
     public void saveOrUpdateRoom(Room room) {
         if (room.getIdRoom() == null || room.getIdRoom() == 0) {
             room.setReservationDate(new Date());
