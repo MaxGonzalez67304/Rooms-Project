@@ -5,6 +5,8 @@ import com.example.rooms.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,17 @@ public class RoomService {
         if (optionalRoom.isPresent()) {
             Room room = optionalRoom.get();
             room.setReserved(isReserved);
+
+            if (isReserved) {
+                LocalDateTime currentTime = LocalDateTime.now();
+                LocalDateTime endTime = currentTime.plusHours(2);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+                room.setReservation_start_time(currentTime.format(formatter));
+                room.setReservation_end_time(endTime.format(formatter));
+            }
+
             roomRepository.save(room);
         }
         return optionalRoom;
