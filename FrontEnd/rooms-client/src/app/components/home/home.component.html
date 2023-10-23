@@ -1,5 +1,6 @@
 <div class="container" id="align">
     <div class="row align-items-center justify-content-center">
+        <!-- Page title and filters -->
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h1 class="title">Board Rooms</h1>
         </div>
@@ -12,18 +13,16 @@
                 <option *ngFor="let size of allSizes" [value]="size">{{ size }}</option>
             </select>
         </div>
-
         &nbsp;
-
         <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <!-- Button to add a new room -->
             <button type="button" class="btn btn-success btn-md" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa fa-save"></i> New Room
             </button>
         </div>
-
         &nbsp;
-
         <div class="col-md-2 d-flex align-items-center justify-content-center">
+            <!-- Button to view reserved rooms -->
             <button type="button" class="btn btn-dark btn-md" data-bs-toggle="modal" routerLink="/reservations">
                 <i class="fa fa-archive"></i> Reserved Rooms
             </button>
@@ -44,6 +43,7 @@
 <div *ngIf="!loading">
     <div class="container">
         <div class="row mt-2">
+            <!-- List of rooms -->
             <div class="col-md-4 mb-3" *ngFor="let item of listRooms">
                 <div class="card bg-danger-light cardBackground">
                     <div class="card-header">
@@ -52,26 +52,29 @@
                         <h5 class="card-title text-white">Size: {{ item.size }}</h5>
                     </div>
                     <div class="card-body">
+                        <!-- Room image -->
                         <img src="../../../assets/images/card-background.jpg" alt="Card Background" class="card-image">
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <small class="text-white">
+                            <!-- Room reservation details -->
                             Start Time: {{ item.reservation_start_time }}
                             <br>
                             End Time: {{ item.reservation_end_time }}
                         </small>
                         <div>
+                            <!-- Room actions -->
                             <button type="button" class="btn btn-dark btn-sm" (click)="reservateRoom(item.idRoom)">
-                                Reservate Room
+                                Reservate
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" (click)="selectItem(item)">
-                                <i class="fa fa-pencil"></i>
+                                <i class="fa fa-pencil"></i> Edit
                             </button>
                             &nbsp;
                             <button type="button" class="btn btn-danger btn-sm" (click)="deleteRoom(item.idRoom)">
-                                <i class="fa fa-trash"></i>
+                                <i class="fa fa-trash"></i> Delete
                             </button>
                         </div>
                     </div>
@@ -81,6 +84,7 @@
     </div>
 </div>
 
+<!-- Modal for adding/editing a room -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     (hidden.bs.modal)="newRoom()">
     <div class="modal-dialog">
@@ -93,13 +97,13 @@
             </div>
             <div class="modal-body">
                 <form [formGroup]="formRoom">
+                    <!-- Room form for adding/editing -->
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" formControlName="name">
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Size</label>
                         <div class="col-sm-10">
@@ -110,7 +114,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Start Time</label>
                         <div class="col-sm-10">
@@ -118,7 +121,6 @@
                                 inputMode="none" step="60">
                         </div>
                     </div>
-
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">End Time</label>
                         <div class="col-sm-10">
@@ -129,6 +131,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <!-- Button to save or update room -->
                 <button *ngIf="!isUpdate" type="button" class="btn btn-success btn-sm"
                     (click)="saveRoom()">Save</button>
                 <button *ngIf="isUpdate" type="button" class="btn btn-warning btn-sm"

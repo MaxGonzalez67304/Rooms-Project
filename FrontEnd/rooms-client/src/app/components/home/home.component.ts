@@ -23,6 +23,7 @@ export class HomeComponent {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    // Initialize the form group for room data
     this.formRoom = new FormGroup({
       idRoom: new FormControl(''),
       name: new FormControl(''),
@@ -32,22 +33,26 @@ export class HomeComponent {
       reservation_end_time: new FormControl(''),
     });
 
+    // Load the list of rooms
     this.listAllRooms();
   }
 
+  // Function to list all rooms
   listAllRooms() {
     this.apiService.getUnReservedRooms().subscribe(response => {
       if (response) {
         if (this.selectedSize === 'All') {
           this.listRooms = response;
         } else {
+          // Filter rooms by size and reservation status
           this.listRooms = response.filter((room) => !room.isReserved && room.size === this.selectedSize);
         }
+        this.loading = false;
       }
-      this.loading = false;
     });
   }
 
+  // Function to filter rooms by size
   filterRoomsBySize() {
     this.loading = true;
 
@@ -61,7 +66,9 @@ export class HomeComponent {
     }
   }
 
+  // Function to save a new room
   saveRoom() {
+    // Validate the reservation time interval
     const startTime = new Date(`1970-01-01T${this.formRoom.value.reservation_start_time}Z`);
     const endTime = new Date(`1970-01-01T${this.formRoom.value.reservation_end_time}Z`);
     const diffInHours = Math.abs(endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
@@ -74,6 +81,7 @@ export class HomeComponent {
       return;
     }
 
+    // Send a POST request to save the room
     this.apiService.postRoom(this.formRoom.value).subscribe(response => {
       if (response) {
         this.formRoom.reset();
@@ -83,7 +91,9 @@ export class HomeComponent {
     });
   }
 
+  // Function to update an existing room
   updateRoom() {
+    // Validate the reservation time interval
     const startTime = new Date(`1970-01-01T${this.formRoom.value.reservation_start_time}Z`);
     const endTime = new Date(`1970-01-01T${this.formRoom.value.reservation_end_time}Z`);
     const diffInHours = Math.abs(endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
@@ -91,11 +101,12 @@ export class HomeComponent {
     if (diffInHours !== 2) {
       Swal.fire({
         icon: 'error',
-        text: 'El intervalo de tiempo debe ser de 2 horas',
+        text: 'The time interval must be 2 hours!',
       });
       return;
     }
 
+    // Send a POST request to update the room
     this.apiService.updateRoom(this.formRoom.value).subscribe(response => {
       if (response) {
         this.formRoom.reset();
@@ -104,6 +115,7 @@ export class HomeComponent {
     });
   }
 
+  // Function to delete a room
   deleteRoom(idRoom: number) {
     this.idRoomDelete = idRoom;
     Swal.fire({
@@ -122,6 +134,7 @@ export class HomeComponent {
     });
   }
 
+  // Function to confirm room deletion
   confirmDeleteRoom() {
     if (this.idRoomDelete) {
       this.apiService.deleteRoomById(this.idRoomDelete).subscribe(response => {
@@ -132,11 +145,13 @@ export class HomeComponent {
     }
   }
 
+  // Function to reset the room form
   newRoom() {
     this.formRoom.reset();
     this.isUpdate = false;
   }
 
+  // Function to select a room for editing
   selectItem(item: any) {
     this.formRoom.controls['idRoom'].setValue(item.idRoom);
     this.formRoom.controls['name'].setValue(item.name);
@@ -147,6 +162,7 @@ export class HomeComponent {
     this.isUpdate = true;
   }
 
+  // Function to reserve a room
   reservateRoom(idRoom: number) {
     this.apiService.putReservationStatus(idRoom, true).subscribe(response => {
       if (response) {
@@ -155,9 +171,4 @@ export class HomeComponent {
       }
     });
   }
-
-
-
-
-
 }

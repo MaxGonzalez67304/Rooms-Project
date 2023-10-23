@@ -1,12 +1,12 @@
 <div class="container" id="align">
   <div class="d-flex flex-column justify-content-center align-items-center">
-    <h1 class="title">Reserved Rooms</h1>
+    <h1 class="title">Reserved Rooms</h1> <!-- Title for the Reserved Rooms page -->
   </div>
 
   <div class="row">
     <div class="col-md-14 d-flex align-items-center justify-content-center">
       <button type="button" class="btn btn-dark btn-md" routerLink="/home">
-        <i class="fa fa-arrow-left"></i> Go Back
+        <i class="fa fa-arrow-left"></i> Go Back <!-- Button to navigate back to the home page -->
       </button>
     </div>
   </div>
@@ -17,12 +17,13 @@
     <div class="col-md-4 mb-3" *ngFor="let item of reservedRooms">
       <div class="card bg-danger-light cardBackgroundReserved">
         <div class="card-header">
-          <h5 class="card-title text-white">Number: {{ item.idRoom }}</h5>
-          <h5 class="card-title text-white">Name: {{ item.name }}</h5>
-          <h5 class="card-title text-white">Size: {{ item.size }}</h5>
+          <h5 class="card-title text-white">Number: {{ item.idRoom }}</h5> <!-- Room number -->
+          <h5 class="card-title text-white">Name: {{ item.name }}</h5> <!-- Room name -->
+          <h5 class="card-title text-white">Size: {{ item.size }}</h5> <!-- Room size -->
         </div>
         <div class="card-body">
           <img src="../../../assets/images/card-background.jpg" alt="Card Background Reserved" class="card-image">
+          <!-- Display the card background image for reserved rooms -->
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
           <small class="text-white">
@@ -30,12 +31,14 @@
             <br>
             End Time: {{ item.reservation_end_time }}
           </small>
+          <!-- Display reservation start and end times -->
         </div>
         <div class="card-footer bg-secondary d-flex justify-content-center align-items-center">
           <div>
             <button type="button" class="btn btn-dark btn-sm" (click)="updateReservationStatus(item.idRoom)">
               <i class="fa fa-check"></i> Finish Reservation
             </button>
+            <!-- Button to finish the reservation for a room -->
           </div>
         </div>
       </div>
