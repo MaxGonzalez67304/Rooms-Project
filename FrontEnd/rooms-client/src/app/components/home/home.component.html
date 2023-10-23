@@ -53,8 +53,10 @@
                         <p class="card-text">{{ item.size }}</p>
                     </div>
                     <div class="card-footer bg-success d-flex justify-content-between align-items-center">
-                        <small class="text-muted">Last reserved: {{ item.reservation_start_time
-                            }}</small>
+                        <small class="text-muted">
+                            Start Time: {{ item.reservation_start_time }}
+                            <br>
+                            End Time: {{ item.reservation_end_time}}</small>
                         <p class="card-text m-0">{{ item.isReserved }}</p>
                         <div>
                             <button type="button" class="btn btn-dark btn-sm" (click)="reservateRoom(item.idRoom)">
@@ -110,18 +112,20 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Start Time</label>
                         <div class="col-sm-10">
-                            <input type="time" class="form-control" formControlName="reservation_start_time" inputMode="none"
-                                step="60">
+                            <input type="time" class="form-control" formControlName="reservation_start_time"
+                                inputMode="none" step="60">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">End Time</label>
                         <div class="col-sm-10">
-                            <input type="time" class="form-control" formControlName="reservation_end_time" inputMode="none"
-                                step="60">
+                            <input type="time" class="form-control" formControlName="reservation_end_time"
+                                inputMode="none" step="60">
                         </div>
                     </div>
+
+                    <!-- CHECKBOX-->
 
                 </form>
             </div>

@@ -21,8 +21,10 @@
           </div>
           <div class="card-body" style="background-color: lightgray;">
             <p class="card-text">{{ item.size }}</p>
-            <small class="text-muted">Last reserved: {{ item.reservation_start_time
-                }}</small>
+            <small class="text-muted">
+              Start Time: {{ item.reservation_start_time }}
+              <br>
+              End Time: {{ item.reservation_end_time}}</small>
           </div>
           <div class="card-footer bg-secondary d-flex justify-content-between align-items-center">
             <div>
