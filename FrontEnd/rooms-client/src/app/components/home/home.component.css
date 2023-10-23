@@ -3,15 +3,27 @@
 }
 
 .title {
-    color: black;
+    color: white;
 }
 
 .size {
-    color: black;
+    color: white;
     font-size: 18px;
     font-weight: bold;
 }
 
+.text-white {
+    color: #fff;
+}
+
 .cardBackground {
-    background-color: white;
+    height: 550px;
+
+    background-color: rgb(82, 27, 27);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

@@ -3,5 +3,17 @@
 }
 
 .title {
-    color: black;
+    color: white;
+}
+
+.cardBackgroundReserved {
+    height: 550px;
+
+    background-color: gray;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
