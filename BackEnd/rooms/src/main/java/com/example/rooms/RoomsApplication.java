@@ -20,9 +20,11 @@ public class RoomsApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200").
-						allowedMethods("*").
-						allowedHeaders("*");
+				// Configure Cross-Origin Resource Sharing (CORS) settings
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:4200") // Allow requests from this origin
+						.allowedMethods("*") // Allow all HTTP methods
+						.allowedHeaders("*"); // Allow all HTTP headers
 			}
 		};
 	}
