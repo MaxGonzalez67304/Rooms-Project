@@ -120,7 +120,7 @@ export class HomeComponent {
     this.idRoomDelete = idRoom;
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You will not be able to recover this note',
+      text: 'You will not be able to recover this room!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
