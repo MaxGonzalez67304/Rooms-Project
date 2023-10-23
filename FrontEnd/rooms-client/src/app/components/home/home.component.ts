@@ -1,4 +1,3 @@
-import { Time } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Room } from 'src/app/model/Room';
@@ -63,6 +62,18 @@ export class HomeComponent {
   }
 
   saveRoom() {
+    const startTime = new Date(`1970-01-01T${this.formRoom.value.reservation_start_time}Z`);
+    const endTime = new Date(`1970-01-01T${this.formRoom.value.reservation_end_time}Z`);
+    const diffInHours = Math.abs(endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
+
+    if (diffInHours !== 2) {
+      Swal.fire({
+        icon: 'error',
+        text: 'El intervalo de tiempo debe ser de 2 horas',
+      });
+      return;
+    }
+
     this.apiService.postRoom(this.formRoom.value).subscribe(response => {
       if (response) {
         this.formRoom.reset();
