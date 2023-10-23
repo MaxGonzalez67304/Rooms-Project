@@ -84,6 +84,18 @@ export class HomeComponent {
   }
 
   updateRoom() {
+    const startTime = new Date(`1970-01-01T${this.formRoom.value.reservation_start_time}Z`);
+    const endTime = new Date(`1970-01-01T${this.formRoom.value.reservation_end_time}Z`);
+    const diffInHours = Math.abs(endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
+
+    if (diffInHours !== 2) {
+      Swal.fire({
+        icon: 'error',
+        text: 'El intervalo de tiempo debe ser de 2 horas',
+      });
+      return;
+    }
+
     this.apiService.updateRoom(this.formRoom.value).subscribe(response => {
       if (response) {
         this.formRoom.reset();

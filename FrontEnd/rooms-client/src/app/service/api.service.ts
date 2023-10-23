@@ -38,8 +38,7 @@ export class ApiService {
 
   updateRoom(request: any): Observable<any> {
     const updatedRoom: Room = {
-      ...request,
-      lastReserved: new Date()
+      ...request
     };
 
     return this.httpClient.post<any>(_URL_POST_ROOM, updatedRoom);
