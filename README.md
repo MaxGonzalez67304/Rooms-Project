@@ -1,6 +1,6 @@
 # Room Administration Application
 
-This project is a Room Administration application developed using Angular for the frontend and Spring Boot for the backend. The application allows users to create, read, update, and delete (CRUD) meeting rooms. It also includes a reservation system and a filter option to filter rooms by size.
+This project is a Board Room Administration application developed using Angular for the frontend and Spring Boot for the backend. The application allows users to create, read, update, and delete (CRUD) meeting rooms. It also includes a reservation system and a filter option to filter rooms by size.
 
 ## Table of Contents
 
@@ -88,9 +88,9 @@ Follow these steps to set up the project locally:
 
 - **Manual Release**: Users can release rooms manually before the end of the reservation period.
 
-### Automatic Reservation Release
+### Filter Rooms by Size
 
-- The system automatically releases reserved rooms when the reservation end time is reached.
+- The system provides the ability to filter rooms based on their size. You can choose to view rooms of a specific size, making it easier to find a suitable room for your meeting needs.
 
 ## Folder Structure
 
@@ -153,4 +153,3 @@ To use the Room Administration CRUD application:
 3. Access the application in your web browser.
 
 4. Perform CRUD operations on meeting rooms, make reservations, and observe the automatic release of reserved rooms.
-
