@@ -3,5 +3,6 @@ export class Room {
     name : string = "";
     size : string = "";
     isReserved : boolean = false;
-    reservationDate : Date = new Date();
+    reservation_start_time : string = "";
+    reservation_end_time : string = "";
 }

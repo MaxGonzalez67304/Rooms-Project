@@ -33,16 +33,5 @@ export class ReservationsComponent {
     });
   }
 
-  formatLastReserved(lastReserved: string | Date | undefined): string {
-    if (!lastReserved) {
-      return 'N/A';
-    }
-
-    if (typeof lastReserved === 'string') {
-      lastReserved = new Date(lastReserved);
-    }
-
-    return lastReserved.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' });
-  }
 
 }

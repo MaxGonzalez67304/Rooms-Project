@@ -1,5 +1,6 @@
+import { Time } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Room } from 'src/app/model/Room';
 import { ApiService } from 'src/app/service/api.service';
 import Swal from 'sweetalert2';
@@ -28,7 +29,8 @@ export class HomeComponent {
       name: new FormControl(''),
       size: new FormControl(''),
       isReserved: new FormControl(''),
-      reservationDate: new FormControl(''),
+      reservation_start_time: new FormControl(''),
+      reservation_end_time: new FormControl(''),
     });
 
     this.listAllRooms();
@@ -54,12 +56,11 @@ export class HomeComponent {
       this.listAllRooms();
     } else {
       this.apiService.getRoomsBySize(this.selectedSize).subscribe((response) => {
-        this.listRooms = response.filter((room) => !room.isReserved  && room.size === this.selectedSize);
+        this.listRooms = response.filter((room) => !room.isReserved && room.size === this.selectedSize);
         this.loading = false;
       });
     }
   }
-
 
   saveRoom() {
     this.apiService.postRoom(this.formRoom.value).subscribe(response => {
@@ -115,24 +116,12 @@ export class HomeComponent {
 
   selectItem(item: any) {
     this.formRoom.controls['idRoom'].setValue(item.idRoom);
-    this.formRoom.controls['name'].setValue(item.title);
-    this.formRoom.controls['size'].setValue(item.content);
-    this.formRoom.controls['isReserved'].setValue(item.category);
-    this.formRoom.controls['reservationDate'].setValue(item.category);
-    this.lastReservationDate = item.lastReserved;
+    this.formRoom.controls['name'].setValue(item.name);
+    this.formRoom.controls['size'].setValue(item.size);
+    this.formRoom.controls['isReserved'].setValue(item.isReserved);
+    this.formRoom.controls['reservation_start_time'].setValue(item.reservation_start_time);
+    this.formRoom.controls['reservation_end_time'].setValue(item.reservation_end_time);
     this.isUpdate = true;
-  }
-
-  formatLastReserved(lastReserved: string | Date | undefined): string {
-    if (!lastReserved) {
-      return 'N/A';
-    }
-
-    if (typeof lastReserved === 'string') {
-      lastReserved = new Date(lastReserved);
-    }
-
-    return lastReserved.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'medium' });
   }
 
   reservateRoom(idRoom: number) {

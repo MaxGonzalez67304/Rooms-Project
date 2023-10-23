@@ -32,6 +32,7 @@ export class ApiService {
   }
 
   postRoom(room: Room): Observable<Room> {
+    console.log("objeto", room);
     return this.httpClient.post<Room>(_URL_POST_ROOM, room);
   }
 
