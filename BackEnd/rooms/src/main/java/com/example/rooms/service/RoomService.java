@@ -3,6 +3,7 @@ package com.example.rooms.service;
 import com.example.rooms.model.Room;
 import com.example.rooms.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -51,6 +52,24 @@ public class RoomService {
             roomRepository.save(room);
         }
         return optionalRoom;
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void autoUpdateRoomReservationStatus() {
+        List<Room> allRooms = roomRepository.findAll();
+
+        for (Room room : allRooms) {
+            LocalDateTime startTime = LocalDateTime.parse(room.getReservation_start_time(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalDateTime endTime = LocalDateTime.parse(room.getReservation_end_time(), DateTimeFormatter.ofPattern("HH:mm"));
+
+            if (!room.isReserved() && LocalDateTime.now().isAfter(startTime)) {
+                room.setReserved(true);
+                roomRepository.save(room);
+            } else if (room.isReserved() && LocalDateTime.now().isAfter(endTime)) {
+                room.setReserved(false);
+                roomRepository.save(room);
+            }
+        }
     }
 
     public void deleteRoom(Long idRoom) {
